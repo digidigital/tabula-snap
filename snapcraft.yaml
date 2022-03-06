@@ -49,7 +49,7 @@ parts:
     source-type: zip
   get-desktop:
     plugin: dump
-    source: ./tabula-desktop.zip
+    source: https://github.com/digidigital/tabula-snap/raw/main/tabula-desktop.zip
     source-type: zip
   packages:
     plugin: nil
