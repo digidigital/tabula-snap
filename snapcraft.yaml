@@ -33,7 +33,7 @@ environment:
   PATH: $PATH:$SNAP/usr/lib/jvm/java-11-openjdk-amd64/bin
 
 apps:
-  tabula-server:
+  tabulaserver:
     command: tabula.sh
     desktop: $SNAPCRAFT_PROJECT_DIR/tabula-desktop/tabula.desktop
     extensions: [gnome-3-38]
