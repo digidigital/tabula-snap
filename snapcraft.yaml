@@ -1,8 +1,7 @@
 name: tabula
 title: Tabula
 version: '1.2.1'
-summary: |
-  Tabula helps you liberate data tables trapped inside PDF files.
+summary: Tabula helps you liberate data tables trapped inside PDF files.
 description: |
   If you’ve ever tried to do anything with data provided to you in PDFs,
   you know how painful this is — you can’t easily copy-and-paste rows of
