@@ -66,5 +66,5 @@ layout:
     bind-file: $SNAP/etc/wgetrc
   /etc/ssl/certs/java/cacerts:
     bind-file: $SNAP/etc/default/cacerts
-  usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts:
+  /usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts:
     bind-file: $SNAP/etc/default/cacerts
