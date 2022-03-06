@@ -64,5 +64,5 @@ parts:
 layout:
   /etc/wgetrc:
     bind-file: $SNAP/etc/wgetrc
-  /etc/ssl/certs/java/cacerts
+  /etc/ssl/certs/java/cacerts:
     bind-file: $SNAP/etc/default/cacerts
