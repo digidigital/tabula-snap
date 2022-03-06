@@ -2,7 +2,7 @@
 Name=Tabula
 GenericName=Table Extractor
 Comment=Tabula: Extract Tables from PDFs
-Exec=tabula
+Exec=tabulaserver
 Icon=${SNAP}/tabula-desktop/tabula.svg
 Terminal=true
 Type=Application
