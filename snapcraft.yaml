@@ -69,5 +69,5 @@ parts:
 layout:
   /etc/wgetrc:
     bind-file: $SNAP/etc/wgetrc
-  /usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs:
-    symlink: $SNAP/usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs
+  /usr/lib/jvm/java-11-openjdk-amd64/lib/security:
+    bind: $SNAP/usr/lib/jvm/java-11-openjdk-amd64/lib/security
