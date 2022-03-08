@@ -65,9 +65,9 @@ parts:
       snapcraftctl prime
       echo '(trap 'kill 0' SIGINT; (wget -tries=20 --retry-connrefused http://127.0.0.1:9999 --waitretry=1 -q -P /dev/null ; xdg-open http://127.0.0.1:9999) & java -Dfile.encoding=utf-8 -Xms256M -Xmx1024M -Dtabula.disable_version_check=1 -Dtabula.disable_notifications=1 -Dwarbler.port=9999 -jar $SNAP/tabula/tabula.jar)' > tabula.sh
       chmod +x tabula.sh
-
+      rm $SNAPCRAFT_PRIME/usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs
+      touch $SNAPCRAFT_PRIME/usr/lib/jvm/java-11-openjdk-amd64/lib/security/blacklisted.certs
+  
 layout:
   /etc/wgetrc:
     bind-file: $SNAP/etc/wgetrc
-  /usr/lib/jvm/java-11-openjdk-amd64/lib/security:
-    bind: $SNAP/usr/lib/jvm/java-11-openjdk-amd64/lib/security
