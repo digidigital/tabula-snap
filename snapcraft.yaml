@@ -7,12 +7,10 @@ description: |
   you know how painful this is — you can’t easily copy-and-paste rows of
   data out of PDF files. Tabula allows you to extract that data in CSV
   format, through a simple web interface. 
-
   Caveat - Tabula only works on text-based PDFs, not (image based) scanned 
   documents. If you can click-and-drag to select text in your table in a 
   PDF viewer (even if the output is disorganized trash), then your PDF is 
   text-based and Tabula should work.
-
   Security Concerns? Tabula is designed with security in mind. Your PDF 
   and the extracted data never touch the net -- when you use Tabula on your 
   local machine, as long as your browser's URL bar says "localhost" or
@@ -36,6 +34,13 @@ environment:
 apps:
   tabula:
     command: tabula.sh
+    plugs:
+      - removable-media
+      - home
+      - optical-drive
+
+  tabula-server:
+    command: tabula-server.sh
     desktop: $SNAPCRAFT_PROJECT_DIR/tabula-desktop/tabula.desktop
     extensions: [gnome-3-38]
     plugs:
@@ -47,10 +52,24 @@ parts:
     plugin: dump
     source: https://github.com/tabulapdf/tabula/releases/download/v1.2.1/tabula-jar-1.2.1.zip
     source-type: zip
+  
   get-desktop:
     plugin: dump
     source: https://github.com/digidigital/tabula-snap/raw/main/tabula-desktop.zip
     source-type: zip
+  
+  get-jar:
+    plugin: nil 
+    build-packages:
+      - wget
+    override-build: |
+      wget https://github.com/tabulapdf/tabula-java/releases/download/v1.0.5/tabula-1.0.5-jar-with-dependencies.jar
+      cp tabula-1.0.5-jar-with-dependencies.jar $SNAPCRAFT_PART_INSTALL/tabula-1.0.5-jar-with-dependencies.jar
+    override-prime: |
+        snapcraftctl prime
+        echo 'java -jar $SNAP/tabula-1.0.5-jar-with-dependencies.jar "$@"' > tabula.sh
+        chmod +x tabula.sh
+
   packages:
     plugin: nil
     stage-packages:  
@@ -64,8 +83,8 @@ parts:
       - ca-certificates-java
     override-prime: |
       snapcraftctl prime
-      echo '(trap 'kill 0' SIGINT; (wget -tries=20 --retry-connrefused http://127.0.0.1:9999 --waitretry=1 -q -P /dev/null ; xdg-open http://127.0.0.1:9999) & java -Dfile.encoding=utf-8 -Xms256M -Xmx1024M -Dtabula.disable_version_check=1 -Dtabula.disable_notifications=1 -Dwarbler.port=9999 -jar $SNAP/tabula/tabula.jar)' > tabula.sh
-      chmod +x tabula.sh 
+      echo '(trap 'kill 0' SIGINT; (wget -tries=20 --retry-connrefused http://127.0.0.1:9999 --waitretry=1 -q -P /dev/null ; xdg-open http://127.0.0.1:9999) & java -Dfile.encoding=utf-8 -Xms256M -Xmx1024M -Dtabula.disable_version_check=1 -Dtabula.disable_notifications=1 -Dwarbler.port=9999 -jar $SNAP/tabula/tabula.jar)' > tabula-server.sh
+      chmod +x tabula-server.sh 
     prime:
       - -usr/lib/jvm/java-11-openjdk-amd64  
       
